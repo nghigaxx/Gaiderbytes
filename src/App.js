@@ -1,19 +1,22 @@
-import logo from './logo.svg';
+import appHeader from './appHeader'
 import './App.css';
+import StudentApplication from "./pages/StudentApplication";
 
 function App() {
+    let ActivePage
+    switch (window.location.pathname) {
+        case "/":
+            break
+        case "/studentApplication":
+            ActivePage = <StudentApplication/>
+            break
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello World.
-        </p>
-        <p>
-          We will be using PERN stack
-        </p>
-      </header>
-    </div>
+      <div>
+          {appHeader()}
+          {ActivePage}
+      </div>
+
   );
 }
 
