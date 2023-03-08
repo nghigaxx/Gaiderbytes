@@ -1,14 +1,17 @@
 import logo from "./images/logo.jpg";
+import "./appHeader.css"
 
-function header () {
+function appHeader () {
     return(
         <div>
             <img src={logo}/>
-            <a href="/studentApplication">Apply Now</a>
+            <button className="studentApplyButton">
+                <a href="/studentApplication">Apply Now</a>
+            </button>
         </div>
 
     );
 
 }
 
-export default header
+export default appHeader

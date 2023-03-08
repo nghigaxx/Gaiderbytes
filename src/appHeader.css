@@ -1,0 +1,15 @@
+img {
+    height: 100px;
+    width: 180px;
+}
+.studentApplyButton{
+    height: 100px;
+    width: 300px;
+    justify-content: right;
+    background: red;
+    color: white;
+    font-size: 3rem;
+}
+div {
+    justify-content: space-between;
+}
