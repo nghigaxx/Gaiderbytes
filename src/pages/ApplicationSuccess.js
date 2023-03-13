@@ -1,4 +1,4 @@
-function applicationSuccess () {
+function ApplicationSuccess () {
 
     return(
     <div>
@@ -9,4 +9,4 @@ function applicationSuccess () {
     );
 }
 
-export default applicationSuccess
+export default ApplicationSuccess

@@ -22,7 +22,7 @@ import Select from "react-select"
 
         const handleSave = (formValues) => {
 
-            console.log(register("firstName"))
+            console.log(register("first_name"))
             onSave(formValues)
         }
 
@@ -38,16 +38,16 @@ import Select from "react-select"
                     <h2>Canadian HigherEd Coaches Student Application</h2>
                     <form onSubmit={handleSubmit(handleSave)}>
                         <div>
-                            <label htmlFor="firstName">First Name: </label>
+                            <label htmlFor="first_name">First Name: </label>
                             <input type="text"
-                                   {...register("firstName")}
+                                   {...register("first_name")}
 
                             />
                         </div>
                         <div>
-                            <label htmlFor="lastName">Last Name:</label>
+                            <label htmlFor="last_name">Last Name:</label>
                             <input type="text"
-                                   {...register("lastName")}
+                                   {...register("last_name")}
 
                             />
                         </div>
@@ -80,16 +80,16 @@ import Select from "react-select"
                             />
                         </div>
                         <div>
-                            <label htmlFor="postalCode">Postal Code:</label>
+                            <label htmlFor="postal_code">Postal Code:</label>
                             <input type="text"
-                                   {...register("postalCode")}
+                                   {...register("postal_code")}
 
                             />
                         </div>
                         <div>
-                            <label htmlFor="dateOfBirth">Date of Birth:</label>
+                            <label htmlFor="date_of_birth">Date of Birth:</label>
                             <input type="date"
-                                   {...register("dateOfBirth")}/>
+                                   {...register("date_of_birth")}/>
 
                         </div>
                         <div>
@@ -102,57 +102,42 @@ import Select from "react-select"
 
                         </div>
                         <div>
-                            <label htmlFor="institutionName">Name of Post-secondary institution:</label>
+                            <label htmlFor="institution_name">Name of Post-secondary institution:</label>
                             <input type="text"
-                                   {...register("institutionName")}
+                                   {...register("institution_name")}
                                    />
                         </div>
                         <div>
-                            <label htmlFor="programName">Program Name:</label>
+                            <label htmlFor="program_name">Program Name:</label>
                             <input type="text"
-                                   {...register("programName")}
-
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password">Account Password:</label>
-                            <input type="password"
-                                   {...register("password")}
-
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="passwordConfirm">Confirm Password:</label>
-                            <input type="password"
-                                   name="passwordConfirm"
-
+                                   {...register("program_name")}
 
                             />
                         </div>
                         <h2>Emergency Contact</h2>
                         <div>
-                            <label htmlFor="emergencyContactFirstName">First Name:</label>
+                            <label htmlFor="emergency_contact_first_name">First Name:</label>
                             <input type="string"
-                                   {...register("emergencyContactFirstName")}
+                                   {...register("emergency_contact_first_name")}
 
                             />
                         </div>
                         <div>
-                            <label htmlFor="emergencyContactLastName">Last Name:</label>
+                            <label htmlFor="emergency_contact_last_name">Last Name:</label>
                             <input type="string"
-                                   {...register("emergencyContactLastName")}
+                                   {...register("emergency_contact_last_name")}
                                    />
                         </div>
                         <div>
-                            <label htmlFor="emergencyContactPhone">Phone Number:</label>
+                            <label htmlFor="emergency_contact_phone">Phone Number:</label>
                             <input type="string"
-                                   {...register("emergencyContactPhone")}
+                                   {...register("emergency_contact_phone")}
                             />
                         </div>
                         <div>
-                            <label htmlFor="emergencyContactRelation">Emergency Contact Relation:</label>
+                            <label htmlFor="emergency_contact_relation">Emergency Contact Relation:</label>
                             <input type="string"
-                                   {...register("emergencyContactRelation")}
+                                   {...register("emergency_contact_relation")}
                             />
                         </div>
                         <button type="submit">Apply</button>
