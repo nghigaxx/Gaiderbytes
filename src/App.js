@@ -3,6 +3,7 @@ import "./App.css";
 import StudentApplication from "./pages/StudentApplication";
 import ApplicationSuccess from "./pages/ApplicationSuccess";
 import ApplicationFail from "./pages/ApplicationFail";
+import ServerError from "./pages/ServerError";
 import { useState } from "react";
 
 function App() {
@@ -40,6 +41,9 @@ function App() {
       } else if (response.status === 400) {
         console.log("Student has already applied");
         window.location.pathname = "/fail";
+      } else if (response.status === 500) {
+        console.log("Server Error");
+        window.location.pathname = "/serverError"
       }
     } catch (error) {
       console.error(error.message);
@@ -59,6 +63,9 @@ function App() {
       break;
     case "/fail":
       ActivePage = <ApplicationFail />;
+      break;
+    case "/serverError":
+      ActivePage = <ServerError/>;
       break;
     default:
       break;
