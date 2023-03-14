@@ -3,14 +3,13 @@ import {useForm, useController} from "react-hook-form"
 import Select from "react-select"
 import {zodResolver} from "@hookform/resolvers/zod";
 import  {z, string} from "zod";
-import { FormControlLabel, Radio, TextField } from "@mui/material";
+import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
 
 
     const StudentApplication = ({onSave}) => {
-        const [checked, setChecked] = useState(false);
 
-
+        const [checked, setChecked] = useState(null);
 
         const provinces = [
             {value: "alberta", label: "Alberta"},
@@ -48,21 +47,26 @@ import { FormControlLabel, Radio, TextField } from "@mui/material";
         });
 
         const {register, handleSubmit, formState, control} = useForm({resolver: zodResolver(schema)});
+
         const {errors} = formState;
-        const {field} = useController({name: 'province', control});
+
+        const {field: field} = useController({name: 'province', control});
+
+        const {field: field1} = useController({name: 'pronoun', control})
 
         const handleProvinceSelectChange = (option) => {
             field.onChange(option.value)
         }
 
-
+        const handlePronounSelectChange = (option) => {
+            field1.onChange(option.target.value)
+        }
 
         //function to save form values
         const handleSave = (formValues) => {
             console.log(formValues)
             onSave(formValues)
         };
-
 
         return (
             <div>
@@ -144,10 +148,45 @@ import { FormControlLabel, Radio, TextField } from "@mui/material";
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="pronoun">Pronoun:</label>
-                            <input type="text"
-                                   {...register("pronoun")}
-                            />
+                            <RadioGroup onChange={handlePronounSelectChange}>
+                                <label>Pronouns:</label>
+                                <FormControlLabel
+                                    control={
+                                    <Radio
+                                        value={"he/him"}
+                                        onClick={() => setChecked(false)}
+                                    />
+                                    }
+                                    label={"He/Him"}/>
+                                <FormControlLabel
+                                    control={
+                                    <Radio
+                                        value={"she/her"}
+                                        onClick={() => setChecked(false)}
+                                    />} label={"She/Her"}/>
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+
+                                            onClick={() => setChecked(true)}
+                                            value=""
+                                            label="other"
+                                        />
+                                    }
+                                    label={
+                                        checked ? (
+                                                <input
+                                                    disabled={!checked}
+                                                    label="Please Specify"
+                                                    name="other"
+                                                    onChange={handlePronounSelectChange}
+                                                />
+                                        ) : (
+                                            "Other"
+                                        )
+                                    }
+                                />
+                            </RadioGroup>
                             <div style={{color: "red"}}>
                                 {errors.pronoun?.message}
                             </div>
