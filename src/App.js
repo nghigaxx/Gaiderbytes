@@ -1,9 +1,10 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import appHeader from "./appHeader";
 import "./App.css";
-import StudentApplication from "./pages/StudentApplication";
-import ApplicationSuccess from "./pages/ApplicationSuccess";
-import ApplicationFail from "./pages/ApplicationFail";
-import ServerError from "./pages/ServerError";
+import StudentApplication from "./components/StudentApplication";
+import ApplicationSuccess from "./components/ApplicationSuccess";
+import ApplicationFail from "./components/ApplicationFail";
+import ServerError from "./components/ServerError";
 import { useState } from "react";
 
 function App() {
@@ -50,32 +51,19 @@ function App() {
     }
   };
 
-  let ActivePage = <div> </div>;
-
-  switch (window.location.pathname) {
-    case "/":
-      break;
-    case "/studentApplication":
-      ActivePage = <StudentApplication onSave={handleSave} student={student} />;
-      break;
-    case "/success":
-      ActivePage = <ApplicationSuccess/>;
-      break;
-    case "/fail":
-      ActivePage = <ApplicationFail />;
-      break;
-    case "/serverError":
-      ActivePage = <ServerError/>;
-      break;
-    default:
-      break;
-  }
-
   return (
-    <div>
-      {appHeader()}
-      {ActivePage}
-    </div>
+    <BrowserRouter>
+      <div>
+        {appHeader()}
+        <Routes>
+        <Route exact path="/"/>
+        <Route exact path="/studentApplication" element={<StudentApplication onSave={handleSave} student={student} />} />
+        <Route exact path="/success" element={<ApplicationSuccess/>} />
+        <Route exact path="/fail" element={<ApplicationFail/>} />
+        <Route exact path="/serverError" element={<ServerError/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
