@@ -30,10 +30,10 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
         //outlining requirements for input (validation)
         const schema = z.object({
             first_name: z.string().regex(/^[A-Za-z]+$/).min(2).max(20),
-            last_name: z.string().min(1).max(20),
+            last_name: z.string().regex(/^[A-Za-z]+$/).min(2).max(20),
             email: string().email(),
             province: z.string(),
-            city: string().regex(/^[A-Za-z]+$/).min(2).max(20),
+            city: string().regex(/^[A-Za-z]+$/).min(2).max(40),
             address: string().min(5),
             postal_code: string().length(6),
             date_of_birth: string(),
