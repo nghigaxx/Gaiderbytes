@@ -81,7 +81,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                         <div>
                             <h1 className="text-xl">Personal Information</h1>
                             <label htmlFor="first_name">First Name: </label>
-                            <input type="text" className="rounded-md p-3 ml-5 w-50" type="text"  placeholder="Enter first name"
+                            <input type="text" className="rounded-md p-3 ml-5 w-50" placeholder="Enter first name"
                                    {...register("first_name")}
                             />
                             <div style={{color: "red"}}>
