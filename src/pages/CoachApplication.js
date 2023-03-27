@@ -1,5 +1,5 @@
-import {React, useState} from "react";
-import {string, z} from "zod";
+import React,{useState} from "react";
+import { string, z} from "zod";
 import {useController, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import Select from "react-select";
@@ -8,6 +8,8 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
 const CoachApplication = () => {
     const [checked, setChecked] = useState(null);
+    const [expChecked, setExpChecked] = useState(false);
+    const [expOtherChecked, setExpOtherChecked] = useState(false);
 
     const provinces = [
         {value: "alberta", label: "Alberta"},
@@ -36,7 +38,7 @@ const CoachApplication = () => {
         postal_code: string().length(6),
         date_of_birth: string(),
         pronoun: z.string().min(1),
-        years_of_experience: z.string().regex(/^[0-9]+$/).min(1).max(2),
+        years_of_experience: z.string(),
         resume_url: z.string(),
         self_identification: z.string(),
         gen_status: z.string(),
@@ -45,7 +47,7 @@ const CoachApplication = () => {
         availability: z.string(),
         introduction: z.string(),
         reside_in_canada: z.boolean(),
-        post_secondary_exp: z.string(),
+        post_secondary_exp: z.string().min(1),
         post_secondary_program: z.string()
     });
 
@@ -54,8 +56,11 @@ const CoachApplication = () => {
     const {errors} = formState;
 
     const {field: field} = useController({name: 'province', control});
-
-    const {field: field1} = useController({name: 'pronoun', control})
+    const {field: field1} = useController({name: 'pronoun', control});
+    const {field: genStatusInput} = useController({name: 'gen_status', control});
+    const {field: yearsOfExp} = useController({name: 'years_of_experience', control});
+    const {field: postSecondaryExp} = useController({name: 'post_secondary_exp', control});
+    const {field: selfIdentification} = useController({name: 'self_identification', control});
 
     const handleProvinceSelectChange = (option) => {
         field.onChange(option.value)
@@ -64,11 +69,24 @@ const CoachApplication = () => {
     const handlePronounSelectChange = (option) => {
         field1.onChange(option.target.value)
     }
+    const handleGenStatusSelectChange = (option) => {
+        genStatusInput.onChange(option.target.value)
+    }
+    const handleYearsOfExpSelectChange = (option) => {
+        yearsOfExp.onChange(option.target.value)
+    }
+    const handlePostSecondaryExpSelectChange = (option) => {
+        postSecondaryExp.onChange(option.target.value)
+    }
+    const handleIdentificationSelectChange = (option) => {
+        selfIdentification.onChange(option.target.value)
+    }
 
     //function to save form values
     const handleSave = (formValues) => {
         console.log(formValues)
     };
+
 
     return (
         <div>
@@ -204,8 +222,7 @@ const CoachApplication = () => {
                                     checked ? (
                                         <input
                                             disabled={!checked}
-                                            label="Please Specify"
-                                            name="other"
+
                                             className="p-3 m-1 w-60 rounded-md"
                                             placeholder="Enter Pronoun"
                                             onChange={handlePronounSelectChange}
@@ -220,11 +237,25 @@ const CoachApplication = () => {
                             {errors.pronoun?.message}
                         </div>
                         <div>
-                            <label>Self-Identification:</label>
-                            <input type="text"
-                                   className="p-3 m-1 ml-4 w-60 rounded-md"
-                                   {...register("self_identification")}
-                            />
+                            <label>Do you self identify as:</label>
+                            <RadioGroup onChange={handleIdentificationSelectChange}>
+                                <div>
+                                    <Radio value={"black"}></Radio>
+                                    <label>Black</label>
+                                </div>
+                                <div>
+                                    <Radio value={"indigenous"}></Radio>
+                                    <label>Indigenous</label>
+                                </div>
+                                <div>
+                                    <Radio value={"person of colour"}></Radio>
+                                    <label>Person of Colour</label>
+                                </div>
+                                <div>
+                                    <Radio value={"none of the above"}></Radio>
+                                    <label>None of the above</label>
+                                </div>
+                            </RadioGroup>
                             <div style={{color: "red"}}>
                                 {errors.self_identification?.message}
                             </div>
@@ -253,22 +284,66 @@ const CoachApplication = () => {
                     </div>
                     <div>
                         <label>Have you ever worked at a publicly-funded post-secondary institution:</label>
-                        <input type="text"
-                               className="p-3 m-1 ml-4 w-60 rounded-md"
-                               {...register("post_secondary_exp")}
-                        />
+                            <RadioGroup onChange={handlePostSecondaryExpSelectChange}>
+                                <FormControlLabel
+                                    control={
+                                    <Radio
+                                        onClick={() => {
+                                            setExpChecked(true);
+                                            setExpOtherChecked(false);
+                                        }}
+                                        value="yes"
+                                        label="other"
+                                    />
+
+                                    }
+                                    label={
+                                        expChecked ? (
+                                            <input
+                                                type="number"
+                                                className="p-3 m-1 w-60 rounded-md"
+                                                placeholder="Years of experience"
+                                                onChange={handleYearsOfExpSelectChange}/>
+                                        ) : ("Yes")
+                                    }
+                                    />
+                                <div style={{color: "red"}}>
+                                    {errors.years_of_experience?.message}
+                                </div>
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            onClick={() => {
+                                                setExpChecked(false);
+                                                setExpOtherChecked(false);
+                                            }}
+                                            value="No"
+                                        />
+                                    }
+                                    label={"No"}/>
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            onClick={() => {
+                                                setExpChecked(false);
+                                                setExpOtherChecked(true);
+                                            }}
+                                            value=""
+                                            label="other"
+                                        />
+                                    }
+                                    label={
+                                          expOtherChecked ?(
+                                            <input
+                                                className="p-3 m-1 w-60 rounded-md"
+                                                placeholder="Please Specify"
+                                                onChange={handlePostSecondaryExpSelectChange}
+                                            />
+                                        ): ("Other")
+                                    }/>
+                            </RadioGroup>
                         <div style={{color: "red"}}>
                             {errors.post_secondary_exp?.message}
-                        </div>
-                    </div>
-                    <div>
-                        <label>Years of experience:</label>
-                        <input type="number"
-                               className="p-3 m-1 ml-4 w-60 rounded-md"
-                               {...register("years_of_experience")}
-                        />
-                        <div style={{color: "red"}}>
-                            {errors.years_of_experience?.message}
                         </div>
                     </div>
                     <div>
@@ -282,11 +357,21 @@ const CoachApplication = () => {
                         </div>
                     </div>
                     <div>
-                        <label>are you the first/first generation of your family to attend post-secondary:</label>
-                        <input type="text"
-                               className="p-3 m-1 ml-4 w-60 rounded-md"
-                               {...register("gen_status")}
-                        />
+                        <label>Were you:</label>
+                        <RadioGroup onChange={handleGenStatusSelectChange}>
+                            <div>
+                                <Radio value={"first member of my family"}></Radio>
+                                <label>The first person in your family to attend post-secondary education in Canada</label>
+                            </div>
+                            <div>
+                                <Radio value={"first generation of my family"}></Radio>
+                                <label>The first generation of your family to attend post-secondary education in Canada</label>
+                            </div>
+                            <div>
+                                <Radio value={"Neither"}></Radio>
+                                <label>Neither</label>
+                            </div>
+                        </RadioGroup>
                         <div style={{color: "red"}}>
                             {errors.gen_status?.message}
                         </div>

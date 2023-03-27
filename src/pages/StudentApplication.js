@@ -1,4 +1,4 @@
-import {useState, React} from "react";
+import React,{useState} from "react";
 import {useForm, useController} from "react-hook-form"
 import Select from "react-select"
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -71,7 +71,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
         return (
             <div>
                 <div className="m-2 shadow-lg bg-red-700 text-white rounded-md p-3">
-                <h1 class="text-3xl"> Student Application Form</h1>
+                <h1 className="text-3xl"> Student Application Form</h1>
                     <p>Thank you for your interest. Please fill out the form below to apply to receive coaching.</p>
                 </div>
                 <div className="shadow-lg bg-slate-200 p-3 rounded-md m-2">
@@ -171,9 +171,8 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                                 <FormControlLabel
                                     control={
                                         <Radio
-
                                             onClick={() => setChecked(true)}
-                                            value=""
+                                            value="No"
                                             label="other"
                                         />
                                     }
@@ -181,8 +180,6 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                                         checked ? (
                                                 <input
                                                     disabled={!checked}
-                                                    label="Please Specify"
-                                                    name="other"
                                                     className="p-3 m-1 w-60 rounded-md"
                                                     placeholder="Enter Pronoun"
                                                     onChange={handlePronounSelectChange}
@@ -200,7 +197,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                         <div>
                             <h1 className="text-xl">Institution Information</h1>
                             <label htmlFor="institution_name">Name of Post-secondary institution:</label>
-                            <input type="text"className="p-3 m-1 w-60 rounded-md"  placeholder="Enter name of school"
+                            <input type="text" className="p-3 m-1 w-60 rounded-md" placeholder="Enter name of school"
                                    {...register("institution_name")}
                             />
                             <div style={{color: "red"}}>
@@ -209,7 +206,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                         </div>
                         <div>
                             <label htmlFor="program_name">Program Name:</label>
-                            <input type="text"className="p-3 m-1 w-60 rounded-md" placeholder="Enter name of program"
+                            <input type="text" className="p-3 m-1 w-60 rounded-md" placeholder="Enter name of program"
                                    {...register("program_name")}
                             />
                             <div style={{color: "red"}}>
@@ -219,7 +216,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                         <h1 className="text-xl">Emergency Contact</h1>
                         <div>
                             <label htmlFor="emergency_contact_first_name">First Name:</label>
-                            <input type="string" className="p-3 m-1 w-60 rounded-md"placeholder="Enter contact's first name"
+                            <input type="string" className="p-3 m-1 w-60 rounded-md" placeholder="Enter contact's first name"
                                    {...register("emergency_contact_first_name")}
                             />
                             <div style={{color: "red"}}>
@@ -228,7 +225,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                         </div>
                         <div>
                             <label htmlFor="emergency_contact_last_name">Last Name:</label>
-                            <input type="string" className="p-3 m-1 w-60 rounded-md"placeholder="Enter contact's last name"
+                            <input type="string" className="p-3 m-1 w-60 rounded-md" placeholder="Enter contact's last name"
                                    {...register("emergency_contact_last_name")}
                             />
                             <div style={{color: "red"}}>
