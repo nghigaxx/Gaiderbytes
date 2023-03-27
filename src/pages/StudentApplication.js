@@ -107,33 +107,31 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
                             </div>
                         </div>
                         <div>
-                            <div>
-                                <label htmlFor="province">Province:</label>
-                                <Select className="m-1 w-60 rounded-md"
+                            <label htmlFor="province">Province:</label>
+                            <Select className="m-1 w-60 rounded-md"
                                     value ={provinces.find(({value}) => value ===field.value)}
                                     onChange={handleProvinceSelectChange}
                                     options={provinces}
-                                />
-                                <div style={{color: "red"}}>
-                                    {errors.province?.message}
-                                </div>
-                            </div>
-                            <div>
-                                <label htmlFor="city">City:</label>
-                                <input type="text" className="p-3 m-1 ml-20 w-60 rounded-md" placeholder="City"
-                                       {...register("city")}
-                                />
-                                <div style={{color: "red"}}>
-                                    {errors.city?.message}
-                                </div>
-                            </div>
-                            <label htmlFor="address">Street Address:</label>
-                            <input type="text" className="p-3 m-1 w-60 rounded-md" placeholder="123 street name"
-                                   {...register("address")}
                             />
                             <div style={{color: "red"}}>
-                                {errors.address?.message}
+                                {errors.province?.message}
                             </div>
+                        </div>
+                        <div>
+                            <label htmlFor="city">City:</label>
+                            <input type="text" className="p-3 m-1 ml-20 w-60 rounded-md" placeholder="City"
+                                   {...register("city")}
+                            />
+                            <div style={{color: "red"}}>
+                                {errors.city?.message}
+                            </div>
+                        </div>
+                        <label htmlFor="address">Street Address:</label>
+                        <input type="text" className="p-3 m-1 w-60 rounded-md" placeholder="123 street name"
+                               {...register("address")}
+                        />
+                        <div style={{color: "red"}}>
+                            {errors.address?.message}
                         </div>
                         <div>
                             <label htmlFor="postal_code">Postal Code:</label>
