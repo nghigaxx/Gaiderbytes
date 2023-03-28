@@ -61,6 +61,7 @@ const CoachApplication = () => {
     const {field: yearsOfExp} = useController({name: 'years_of_experience', control});
     const {field: postSecondaryExp} = useController({name: 'post_secondary_exp', control});
     const {field: selfIdentification} = useController({name: 'self_identification', control});
+    const {field: resideInCanada} = useController({name: 'reside_in_canada', control});
 
     const handleProvinceSelectChange = (option) => {
         field.onChange(option.value)
@@ -79,6 +80,9 @@ const CoachApplication = () => {
         postSecondaryExp.onChange(option.target.value)
     }
     const handleIdentificationSelectChange = (option) => {
+        selfIdentification.onChange(option.target.value)
+    }
+    const handleResidencySelectChange = (option) => {
         selfIdentification.onChange(option.target.value)
     }
 
@@ -132,10 +136,17 @@ const CoachApplication = () => {
                     </div>
                     <div>
                         <label>Do you reside in Canada?</label>
-                        <input type="text"
-                               className="p-3 m-1 ml-4 w-60 rounded-md"
-                               {...register("reside_in_canada")}
-                        />
+                        <RadioGroup onChange={handleResidencySelectChange}>
+                            <div>
+                                <Radio value={"yes"}></Radio>
+                                <label>Yes</label>
+                            </div>
+                            <div>
+                                <Radio value={"no"}></Radio>
+                                <label>No</label>
+                            </div>
+
+                        </RadioGroup>
                         <div style={{color: "red"}}>
                             {errors.reside_in_canada?.message}
                         </div>
