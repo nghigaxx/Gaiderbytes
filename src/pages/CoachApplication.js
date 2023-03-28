@@ -38,8 +38,8 @@ const CoachApplication = () => {
         postal_code: string().length(6),
         date_of_birth: string(),
         pronoun: z.string().min(1),
-        years_of_experience: z.string(),
-        resume_url: z.string(),
+        years_of_experience: z.string().default("0"),
+        resume_url: z.any(),
         self_identification: z.string(),
         gen_status: z.string(),
         languages: z.string(),
@@ -83,7 +83,12 @@ const CoachApplication = () => {
         selfIdentification.onChange(option.target.value)
     }
     const handleResidencySelectChange = (option) => {
-        selfIdentification.onChange(option.target.value)
+        let result;
+        if (option.target.value && typeof option.target.value === "string") {
+            if (option.target.value.toLowerCase() === "true") result = true;
+            if (option.target.value.toLowerCase() === "false") result = false;
+        }
+        resideInCanada.onChange(result)
     }
 
     //function to save form values
@@ -138,11 +143,11 @@ const CoachApplication = () => {
                         <label>Do you reside in Canada?</label>
                         <RadioGroup onChange={handleResidencySelectChange}>
                             <div>
-                                <Radio value={"yes"}></Radio>
+                                <Radio value={true}></Radio>
                                 <label>Yes</label>
                             </div>
                             <div>
-                                <Radio value={"no"}></Radio>
+                                <Radio value={false}></Radio>
                                 <label>No</label>
                             </div>
 
@@ -359,8 +364,9 @@ const CoachApplication = () => {
                     </div>
                     <div>
                         <label>Resume URL:</label>
-                        <input type="text"
+                        <input type="file"
                                className="p-3 m-1 ml-4 w-60 rounded-md"
+                               accept={".pdf, .docx, .doc"}
                                {...register("resume_url")}
                         />
                         <div style={{color: "red"}}>
@@ -401,10 +407,10 @@ const CoachApplication = () => {
                         <label>Availability:</label>
                         <input type="text"
                                className="p-3 m-1 ml-4 w-60 rounded-md"
-                               {...register("languages")}
+                               {...register("availability")}
                         />
                         <div style={{color: "red"}}>
-                            {errors.languages?.message}
+                            {errors.availability?.message}
                         </div>
                     </div>
                     <div>
