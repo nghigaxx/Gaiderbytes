@@ -6,7 +6,7 @@ import Select from "react-select";
 import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
 
-const CoachApplication = () => {
+const CoachApplication = ({onSave}) => {
     const [checked, setChecked] = useState(null);
     const [expChecked, setExpChecked] = useState(false);
     const [expOtherChecked, setExpOtherChecked] = useState(false);
@@ -39,7 +39,7 @@ const CoachApplication = () => {
         date_of_birth: string(),
         pronoun: z.string().min(1),
         years_of_experience: z.string().default("0"),
-        resume_url: z.any(),
+        resume_url: z.any().nullable(),
         self_identification: z.string(),
         gen_status: z.string(),
         languages: z.string(),
@@ -94,6 +94,7 @@ const CoachApplication = () => {
     //function to save form values
     const handleSave = (formValues) => {
         console.log(formValues)
+        onSave(formValues)
     };
 
 
