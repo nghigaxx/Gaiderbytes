@@ -106,6 +106,7 @@ function App() {
           <Routes>
           <Route exact path="/" element={<Home/>}/>
           <Route exact path="/student-application" element={<StudentApplication onSave={handleSave} student={student} />} />
+          <Route exact path="/coach-application" element={<CoachApplication onSave={handleSaveCoach} coach={coach}/>} />
           <Route exact path="/success" element={<ApplicationSuccess/>} />
           <Route exact path="/fail" element={<ApplicationFail/>} />
           <Route exact path="/serverError" element={<ServerError/>} />
