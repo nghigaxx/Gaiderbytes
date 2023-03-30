@@ -10,6 +10,8 @@ const CoachApplication = ({onSave}) => {
     const [checked, setChecked] = useState(null);
     const [expChecked, setExpChecked] = useState(false);
     const [expOtherChecked, setExpOtherChecked] = useState(false);
+    const [resumeFile, setResumeFile] = useState(null);
+
 
     const provinces = [
         {value: "alberta", label: "Alberta"},
@@ -62,6 +64,10 @@ const CoachApplication = ({onSave}) => {
     const {field: postSecondaryExp} = useController({name: 'post_secondary_exp', control});
     const {field: selfIdentification} = useController({name: 'self_identification', control});
     const {field: resideInCanada} = useController({name: 'reside_in_canada', control});
+    
+    const handleFileChange = (e) => {
+        setResumeFile(e.target.files[0]);
+      };
 
     const handleProvinceSelectChange = (option) => {
         field.onChange(option.value)
@@ -93,8 +99,12 @@ const CoachApplication = ({onSave}) => {
 
     //function to save form values
     const handleSave = (formValues) => {
-        console.log(formValues)
-        onSave(formValues)
+        const formData = new FormData();
+        for (const key in formValues) {
+          formData.append(key, formValues[key]);
+        }
+        formData.append("resume", document.querySelector('input[type="file"]').files[0]);
+        onSave(formData);
     };
 
 
@@ -364,13 +374,14 @@ const CoachApplication = ({onSave}) => {
                         </div>
                     </div>
                     <div>
-                        <label>Resume URL:</label>
-                        <input type="file"
-                               className="p-3 m-1 ml-4 w-60 rounded-md"
-                               accept={".pdf, .docx, .doc"}
-                               {...register("resume_url")}
-                        />
-                        <div style={{color: "red"}}>
+                        <label>Resume:</label>
+                            <input
+                                type="file"
+                                className="p-3 m-1 ml-4 w-60 rounded-md"
+                                accept={".pdf, .docx, .doc"}
+                                onChange={handleFileChange}
+                            />
+                        <div style={{ color: "red" }}>
                             {errors.resume_url?.message}
                         </div>
                     </div>

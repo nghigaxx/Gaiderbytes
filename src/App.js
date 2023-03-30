@@ -76,25 +76,22 @@ function App() {
     }
   };
 
-  const handleSaveCoach = async (values) => {
+  const handleSaveCoach = async (formData) => {
     try {
       const response = await fetch("http://localhost:5000/coachApplication", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
+        body: formData,
       });
       if (response.status === 201) {
         console.log("Application submitted successfully");
-        setCoach(values);
+        setCoach(formData);
         window.location.pathname = "/success";
       } else if (response.status === 400) {
         console.log("Coach has already applied");
         window.location.pathname = "/fail";
       } else if (response.status === 500) {
         console.log("Server Error");
-        window.location.pathname = "/serverError"
+        window.location.pathname = "/serverError";
       }
     } catch (error) {
       console.error(error.message);
